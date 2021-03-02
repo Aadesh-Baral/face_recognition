@@ -17,6 +17,8 @@ def preprocess_image(image_path):
     return img
 
 def loadVggFaceModel():
+    # Model is extracted form repository https://github.com/serengil/tensorflow-101. 
+    # For more info checkout this repository.
     model = Sequential()
     model.add(ZeroPadding2D((1,1),input_shape=(224,224, 3)))
     model.add(Convolution2D(64, (3, 3), activation='relu'))
@@ -62,6 +64,8 @@ def loadVggFaceModel():
     model.add(Flatten())
     model.add(Activation('softmax'))
 
+    
+#https://drive.google.com/file/d/1LSe1YCV1x-BfNnfb7DFZTNpv_Q9jITxn/view
     model.load_weights('vgg_face_weights.h5')
 
     vgg_face_descriptor = Model(inputs=model.layers[0].input, outputs=model.layers[-2].output)
